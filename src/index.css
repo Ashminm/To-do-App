@@ -1,13 +1,51 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #38EF7D;
+    
+}
+#Transparant{
+    background-color: transparent;
+   border: 1px solid #000000a8;
+}
+input:-webkit-autofill{
+    -webkit-background-clip: text;
+}
+.todo-container{
+    width: 450px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    background-color: rgba(64, 125, 179, 0);
+}
+ul li{
+    list-style: none;
+    border-radius: 18px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.styled-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #000000; 
+    outline: none;
+    cursor: pointer;
 }
+
+.styled-checkbox:checked {
+    background-color: rgba(0, 0, 0, 0.815);
+}
+.styled-checkbox:checked::after {
+    content: "\2713";
+    font-size: 14px;
+    font-weight: 900;
+    color: rgb(255, 255, 255); 
+    padding: 0 0 3px 4px;
+}
+
