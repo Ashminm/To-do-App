@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 function TodoApp() {
     const [getitem, setGetItem] = useState([]);
     const [getType, setGetType] = useState("");
-
+    const [date,setDate]=useState(new Date())
+   
+    useEffect(()=>{
+        setInterval(()=>setDate(new Date()),1000)
+    },[])
+    // console.log(date);
     return (
         <div>
             <div className="todo-container">
-                <div className="p-5 shadow" style={{ borderRadius: "18px", backgroundColor: "#38ef7ece" }}>
+                <div className="p-5 shadow" style={{ borderRadius: "18px", backgroundColor: "#38ef7ece"}}>
                     <h2 className="pb-4 m-0 text-start">
-                        TODAY<i className="fa-solid fa-minus"></i>
+                        TODAY<i className="fa-solid fa-minus"></i> {date.toLocaleDateString()}
                     </h2>
                     <div className="d-flex align-items-center">
                         <input
@@ -30,7 +35,7 @@ function TodoApp() {
                                 outline: "none",
                                 border: "1px solid #000",
                             }}
-                            onClick={() => setGetItem([...getitem, {text:getType,status:false}])}
+                            onClick={() => setGetItem([...getitem, {id:Date.now(),text:getType,status:false}])}
                         >
                             add
                         </button>
@@ -41,7 +46,15 @@ function TodoApp() {
                         getitem ? getitem.map((item)=>(
                             <div className="shadow d-flex align-items-center rounded mt-4 p-3">
                         <div className="d-flex align-items-center">
-                            <input type="checkbox" value={item.status} className="styled-checkbox" id="myCheckbox" />
+                            <input type="checkbox" onChange={(e)=>{console.log(e.target.checked);console.log(item);
+                            setGetItem(getitem.filter(values=>{
+                                if(values.id===item.id){
+                                    values.status=e.target.checked
+                                }
+                                return values
+                            }))
+                            
+                            }} value={item.status} className="styled-checkbox" id="myCheckbox" />
                         </div>
                         <div className="m-0 ps-3 w-100 text-start">
                             <p className="m-0">{item.text}</p>

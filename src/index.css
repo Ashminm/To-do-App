@@ -5,6 +5,9 @@
     background-color: #38EF7D;
     
 }
+::-webkit-scrollbar{
+    display: none;
+}
 #Transparant{
     background-color: transparent;
    border: 1px solid #000000a8;
