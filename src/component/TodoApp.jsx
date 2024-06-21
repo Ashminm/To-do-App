@@ -3,16 +3,23 @@ import React, { useState,useEffect } from "react";
 function TodoApp() {
     const [date,setDate]=useState(new Date())
     const [task,setTask]=useState([
-        {title:"Example Task",completed:false}
+        // {title:"Example Task",completed:false}
     ])
     const [value,setValue]=useState("")
    
     const handleAdd=()=>{
         // console.log(value);
         if (value.trim()) { 
-            const newTasks = [...task, { title: value ,completed:false}];
+            const taskExists = task.some(taskItem => taskItem.title === value);
+            if(!taskExists){
+                const newTasks = [...task, { title: value ,completed:false}];
             setTask(newTasks);
             setValue(""); 
+            }else{
+                console.log("Already Exist Task!!");
+                setValue("")
+            }
+             
         } else {
             console.log("Please add a task");
         }
@@ -33,7 +40,7 @@ function TodoApp() {
         console.log("Completed!!");
     };
 
-    const numberOfTasks = task.length > 0 ? task.length - 1 : 0;
+    // const numberOfTasks = task.length > 0 ? task.length - 1 : 0;
 
     useEffect(()=>{
         const intervalId = setInterval(() => setDate(new Date()), 1000);
@@ -48,7 +55,7 @@ function TodoApp() {
                     <h3 className="pb-4 m-0 text-start">
                         TODAY<i className="fa-solid fa-minus"></i> {date.toLocaleDateString()}
                     </h3>
-                    <p><span className="text-danger h4">{numberOfTasks}</span> Task Pending</p>
+                    <p><span className="text-danger h4">{task.length}</span> Task Pending</p>
                     </div>
                     <div className="d-flex align-items-center">
                         <input
