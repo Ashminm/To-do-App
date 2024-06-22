@@ -74,7 +74,7 @@ function TodoApp() {
         const taskTitle = newTasks[index].title;
         setTask(newTasks); 
         // console.log(taskTitle); 
-        toast.success(`You select: ${taskTitle} Task`,
+        toast.success(`You just select: ${taskTitle} Task`,
             {
               icon: '💥',
               style: {
