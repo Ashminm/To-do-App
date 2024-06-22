@@ -96,7 +96,7 @@ function TodoApp() {
       
             <div className="todo-container">
                 <div className="p-5 pt-4 shadow" style={{ borderRadius: "18px", backgroundColor: "#38ef7ece"}}>
-                    <p className="text-start" style={{fontSize:'11px',fontStyle:'italic'}}>“We need to do a better job of putting ourselves higher on our own ‘to do’ list.” - <span className="ps-3 fw-bold">Michelle Obama</span></p>
+                    <p className="text-start" style={{fontSize:'11px',fontStyle:'italic'}}>“We need to do a better job of putting ourselves higher on our own ‘to do’ list.” <span className="ps-3 fw-bold">-- Michelle Obama</span></p>
                     <div className="d-flex align-items-center justify-content-between">
                     <h3 className="pb-4 m-0 text-start">
                         TODAY<i className="fa-solid fa-minus"></i> {date.toLocaleDateString()}
