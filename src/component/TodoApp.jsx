@@ -1,9 +1,10 @@
 import React, { useState,useEffect } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 
 function TodoApp() {
     const [date,setDate]=useState(new Date())
     const [task,setTask]=useState([
-        // {title:"Example Task",completed:false}
+        // {title:"Example Task"}
     ])
     const [value,setValue]=useState("")
    
@@ -12,16 +13,44 @@ function TodoApp() {
         if (value.trim()) { 
             const taskExists = task.some(taskItem => taskItem.title === value);
             if(!taskExists){
-                const newTasks = [...task, { title: value ,completed:false}];
+                const newTasks = [...task, { title: value}];
             setTask(newTasks);
+            toast(`Task added successfully!`,
+                {
+                  icon: '🎯',
+                  style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                  },
+                }
+              );
+
             setValue(""); 
+            
             }else{
-                console.log("Already Exist Task!!");
+                toast("Already Exist Task!!",
+                    {
+                      icon: '⚠️',
+                      style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#ffcc00',
+                      },
+                    })
                 setValue("")
             }
              
         } else {
-            console.log("Please add a task");
+            toast("Please enter a task!",
+                {
+                  icon: '❌',
+                  style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#cc6000',
+                  },
+                });
         }
         
     }
@@ -29,17 +58,33 @@ function TodoApp() {
         const newDelete = [...task]
         newDelete.splice(index,1);
         setTask(newDelete)
-        console.log("task deleted!!");
+        toast.success("Task deleted!",
+            {
+              icon: '🎯',
+              style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+              },
+            });
     }
-
-    const handleCompleted = (index) => {
-        const newTasks = task.map((taske, i) =>
-            i === index ? { ...taske, completed: !taske.completed } : taske
-        );
-        setTask(newTasks);
-        console.log("Completed!!");
+    const handleSelect = (index) => {
+        const newTasks = [...task];
+        newTasks.indexn = !newTasks.index; 
+        const taskTitle = newTasks[index].title;
+        setTask(newTasks); 
+        // console.log(taskTitle); 
+        toast.success(`You select: ${taskTitle} Task`,
+            {
+              icon: '💥',
+              style: {
+                borderRadius: '10px',
+                background: '#333',
+                color: '#fff',
+              },
+            })
     };
-
+    
     // const numberOfTasks = task.length > 0 ? task.length - 1 : 0;
 
     useEffect(()=>{
@@ -82,29 +127,36 @@ function TodoApp() {
                         </button>
                     </div>
                 </div>
-                <div>
+                <div className="mt-3" style={{height:'60vh',overflowY:'scroll'}}>
                    {
-                    task.map((i,index)=>(
-                        <div className="shadow d-flex align-items-center rounded mt-4 p-3" key={index}>
-                        <div className="d-flex align-items-center">
-                        <input
-                                type="checkbox"
-                                className="styled-checkbox"
-                                id={`myCheckbox${index}`}
-                                checked={task.completed}
-                                onChange={() => handleCompleted(index)}
-                            />
+                    task.length>0 ? (
+                        task.map((i,index)=>(
+                            <div className="shadow d-flex align-items-center rounded mt-3 p-3" key={index}>
+                            <div className="d-flex align-items-center">
+                            <input
+                                    type="checkbox"
+                                    className="styled-checkbox"
+                                    id={`checkbox-${index}`}
+                                    checked={i.completed}
+                                    onChange={() => handleSelect(index)}
+                                />
+                            </div>
+                            <div className="m-0 ps-3 w-100 text-start">
+                                <p className="m-0">{i.title}</p>
+                            </div>
+                            <div className="text-end pe-2 ps-2">
+                                <i className="fa-regular fa-circle-xmark h4 m-0 text-danger" onClick={()=>handleremove(index)}></i>
+                            </div>
                         </div>
-                        <div className="m-0 ps-3 w-100 text-start">
-                            <p className="m-0" style={{ textDecoration: task.completed ? "line-through" : "none" }}>{i.title}</p>
-                        </div>
-                        <div className="text-end pe-2 ps-2">
-                            <i className="fa-regular fa-circle-xmark h4 m-0 text-danger" onClick={()=>handleremove(index)}></i>
-                        </div>
-                    </div>
-                    ))
-                   }
+                        ))
+                      
+                    ):(
+                        <p className="m-0  mt-4 py-3">Please Add Task!</p>
+                    ) }
+                    
                 </div>
+                <Toaster position="bottom-center"
+                        reverseOrder={false} />
             </div>
     );
 }
