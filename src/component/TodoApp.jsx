@@ -9,7 +9,6 @@ function TodoApp() {
     const [value,setValue]=useState("")
    
     const handleAdd=()=>{
-        // console.log(value);
         if (value.trim()) { 
             const taskExists = task.some(taskItem => taskItem.title === value);
             if(!taskExists){
@@ -73,7 +72,6 @@ function TodoApp() {
         newTasks.indexn = !newTasks.index; 
         const taskTitle = newTasks[index].title;
         setTask(newTasks); 
-        // console.log(taskTitle); 
         toast.success(`You just select: ${taskTitle} Task`,
             {
               icon: '💥',
